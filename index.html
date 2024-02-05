@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script>
+
+function or(p,q){
+
+return Math.min(1,p+q);
+
+      }
+
+
+    AFRAME.registerComponent('graph', {
+
+
+      init: function () {
+
+        let grain = 30;
+        let boxSize = 1/grain;
+        let xAxis = $(`<a-cylinder position="0 ${0-grain*boxSize/2} 0" radius="0.01" height="${grain*boxSize}" color="#FFC65D" shadow="" material="" geometry=""></a-cylinder>`)
+        let yAxis = $(`<a-cylinder position="0 ${0-grain*boxSize/2} 0" radius="0.01" height="${grain*boxSize}" color="#FFC65D" shadow="" material="" geometry=""></a-cylinder>`)
+        let zAxis = $(`<a-cylinder position="0 ${0-grain*boxSize/2} 0" radius="0.01" height="${grain*boxSize}" color="#FFC65D" shadow="" material="" geometry=""></a-cylinder>`)
+    
+
+
+        for (i in [...Array(grain)]) {
+          for (j in [...Array(grain)]) {
+
+            let p=i/grain;
+            let q=j/grain;
+            let fun=or(p,q);
+            let platfun = fun*boxSize*grain
+            let box = $(`<a-box position="${(i*boxSize)}  ${(0-platfun/2)}   ${-j* boxSize}" id="${i}_${j}" height="${fun*boxSize*grain}"  width="${boxSize}"   depth="${boxSize}"   color="red">  </a-box>`)
+            $('a-scene').append([xAxis,box])
+          }
+        }
+
+
+
+
+      }
+    });
+
+
+
+
+  </script>
+</head>
+
+<body>
+  <a-scene graph>
+    <a-camera position="0 1 1" rotation = "-10 0 0" fov="1000000000"></a-camera>
+  </a-scene>
+</body>
+
+<script>
+
+
+
+</script>
+
+</html>
